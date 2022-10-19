@@ -11,6 +11,8 @@
 let deck = [];
 let value = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'];
 let suit = [' of Hearts', ' of Diamonds', ' of Spades', ' of Clubs'];
+let playerHand = [];
+let dealerHand = [];
 
 // loop of 13 values, nested loop of 4 cards for each value and suite
 
@@ -23,6 +25,13 @@ const initializeDeck = (deck) => {
     }
   }
   return deck;
+}
+
+const initialHand = (deck, playerHand, dealerHand) => {
+  playerHand.push(deck.shift());
+  dealerHand.push(deck.shift());
+  playerHand.push(deck.shift());
+  dealerHand.push(deck.shift());
 }
 
 const shuffleDeck = (deck) => {
@@ -38,8 +47,20 @@ const shuffleDeck = (deck) => {
   return shuffledDeck;
 }
 
+const displayHands = (playerHand, dealerHand) => {
+  console.clear();
+
+  console.log(`Dealer has: ${dealerHand[0]['Value']} and ${dealerHand[1]['Value']}.`);
+  console.log(`You have: ${playerHand[0]['Value']} and ${playerHand[1]['Value']}.`)
+}
+
 // MAIN
 
 (initializeDeck(deck)); // create deck
 deck = shuffleDeck(deck); // shuffle deck
-console.log(deck); // print shuffled deck
+// console.log(deck); // print shuffled deck
+// Deal initial hand
+initialHand(deck, playerHand, dealerHand);
+
+// Display initial hand
+displayHands(playerHand, dealerHand);
