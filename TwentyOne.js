@@ -39,7 +39,7 @@ const initialHand = (deck, playerHand, dealerHand) => { // may refactor for a lo
 const shuffleDeck = (deck) => {
 
   let shuffledDeck = []; // temporary deck to hold shuffled cards
-  
+
   for (let i = deck.length; i > 0; i--) {
     let randomIndex = Math.floor(Math.random() * deck.length);
     shuffledDeck.push(deck[randomIndex]);
@@ -56,9 +56,9 @@ const displayHands = (playerHand, dealerHand) => {
   console.log(`You have: ${playerHand[0]['value']} and ${playerHand[1]['value']}.`)
 }
 
-const sumHands = (playerHand, dealerHand) => {
-  playerHand.forEach((card) => playerTotal + Number(card.value));
-  dealerHand.forEach((card) => dealerTotal + Number(card.value));
+const sumHands = (playerHand, dealerHand) => { // TO DO: account for face cards
+  playerHand.forEach((card) => { playerTotal += Number(card.value) });
+  dealerHand.forEach((card) => { dealerTotal += Number(card.value) });
 }
 
 // MAIN
