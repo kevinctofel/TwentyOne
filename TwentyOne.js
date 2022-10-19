@@ -13,6 +13,8 @@ let value = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'Kin
 let suit = [' of Hearts', ' of Diamonds', ' of Spades', ' of Clubs'];
 let playerHand = [];
 let dealerHand = [];
+let playerTotal = 0;
+let dealerTotal = 0;
 
 // loop of 13 values, nested loop of 4 cards for each value and suite
 
@@ -20,14 +22,14 @@ const initializeDeck = (deck) => {
 
   for (let i = 0; i < value.length; i++) {
     for (let j = 0; j < suit.length; j++) {
-      let card = { Value: value[i], Suit: suit[j] }
+      let card = { value: value[i], suit: suit[j] }
       deck.push(card);
     }
   }
   return deck;
 }
 
-const initialHand = (deck, playerHand, dealerHand) => {
+const initialHand = (deck, playerHand, dealerHand) => { // may refactor for a loop with 4 iterations, switching hands between each
   playerHand.push(deck.shift());
   dealerHand.push(deck.shift());
   playerHand.push(deck.shift());
@@ -50,8 +52,13 @@ const shuffleDeck = (deck) => {
 const displayHands = (playerHand, dealerHand) => {
   console.clear();
 
-  console.log(`Dealer has: ${dealerHand[0]['Value']} and ${dealerHand[1]['Value']}.`);
-  console.log(`You have: ${playerHand[0]['Value']} and ${playerHand[1]['Value']}.`)
+  console.log(`Dealer has: ${dealerHand[0]['value']} and a face down card.`);
+  console.log(`You have: ${playerHand[0]['value']} and ${playerHand[1]['value']}.`)
+}
+
+const sumHands = (playerHand, dealerHand) => {
+  playerHand.forEach((card) => playerTotal + Number(card.value));
+  dealerHand.forEach((card) => dealerTotal + Number(card.value));
 }
 
 // MAIN
@@ -64,3 +71,5 @@ initialHand(deck, playerHand, dealerHand);
 
 // Display initial hand
 displayHands(playerHand, dealerHand);
+sumHands(playerHand, dealerHand);
+console.log(`Player has ${playerTotal}. Dealer has ${dealerTotal}.`);
