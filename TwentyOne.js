@@ -26,19 +26,20 @@ const initializeDeck = (deck) => {
 }
 
 const shuffleDeck = (deck) => {
+
   let shuffledDeck = []; // temporary deck to hold shuffled cards
-  console.log(deck.length);
+  
   for (let i = deck.length; i > 0; i--) {
     let randomIndex = Math.floor(Math.random() * deck.length);
     shuffledDeck.push(deck[randomIndex]);
     deck.splice(randomIndex, 1);
   }
+
   return shuffledDeck;
 }
 
 // MAIN
 
 (initializeDeck(deck)); // create deck
-deck = shuffleDeck(deck); // shuffle and print deck
-console.log(deck);
-console.log(deck.length);
+deck = shuffleDeck(deck); // shuffle deck
+console.log(deck); // print shuffled deck
