@@ -7,7 +7,7 @@
 //    - repeat until total >= 17
 // 6. If dealer busts, player wins.
 // 7. Compare cards and declare winner.
-
+const prompt = require('readline-sync');
 let deck = [];
 let value = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'];
 let suit = [' of Hearts', ' of Diamonds', ' of Spades', ' of Clubs'];
@@ -53,10 +53,15 @@ const displayHands = (playerHand, dealerHand) => {
     console.clear();
 
     console.log(`Dealer has: ${dealerHand[0]['value']} and a face down card of ${dealerHand[1]['value']}`);
-    console.log(`You have: ${playerHand[0]['value']} and ${playerHand[1]['value']}.`)
+    console.log("You have: ");
+    for (let i = 0; i < playerHand.length; i++) {
+        console.log(`${playerHand[i]['value']}`);
+    }
 }
 
 const sumHands = (playerHand, dealerHand) => { 
+    playerTotal = 0;
+    dealerTotal = 0;
     playerHand.forEach((card) => { // Refactor duplicate code
         switch (card['value']) {
             case 'Jack':
@@ -87,6 +92,11 @@ const sumHands = (playerHand, dealerHand) => {
     });
 }
 
+const dealACard = (deck, hand) => {
+    hand.push(deck.shift());
+    // return hand;
+}
+
 
 // MAIN
 
@@ -97,6 +107,17 @@ deck = shuffleDeck(deck); // shuffle deck
 initialHand(deck, playerHand, dealerHand);
 
 // Display initial hand
+displayHands(playerHand, dealerHand);
+sumHands(playerHand, dealerHand);
+console.log(`Player has ${playerTotal}. Dealer has ${dealerTotal}.`);
+
+
+let input = prompt.question("Do you want to (H)it or (S)tand? ");
+// if (input.toUpperCase === 'H') {
+//     dealACard(deck, playerHand);
+// }
+dealACard(deck, playerHand);
+
 displayHands(playerHand, dealerHand);
 sumHands(playerHand, dealerHand);
 console.log(`Player has ${playerTotal}. Dealer has ${dealerTotal}.`);
