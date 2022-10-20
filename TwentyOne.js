@@ -53,9 +53,10 @@ const displayHands = (playerHand, dealerHand) => {
     console.clear();
 
     console.log(`Dealer has: ${dealerHand[0]['value']} and a face down card of ${dealerHand[1]['value']}`);
+    // need to loop through hand for dealer similar to player code below
     console.log("You have: ");
     for (let i = 0; i < playerHand.length; i++) {
-        console.log(`${playerHand[i]['value']}`);
+        console.log(`${playerHand[i]['value']}`); // Need to format this so it's on a single line
     }
 }
 
