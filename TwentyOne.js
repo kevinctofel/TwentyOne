@@ -20,46 +20,73 @@ let dealerTotal = 0;
 
 const initializeDeck = (deck) => {
 
-  for (let i = 0; i < value.length; i++) {
-    for (let j = 0; j < suit.length; j++) {
-      let card = { value: value[i], suit: suit[j] }
-      deck.push(card);
+    for (let i = 0; i < value.length; i++) {
+        for (let j = 0; j < suit.length; j++) {
+            let card = { value: value[i], suit: suit[j] }
+            deck.push(card);
+        }
     }
-  }
-  return deck;
+    return deck;
 }
 
 const initialHand = (deck, playerHand, dealerHand) => { // may refactor for a loop with 4 iterations, switching hands between each
-  playerHand.push(deck.shift());
-  dealerHand.push(deck.shift());
-  playerHand.push(deck.shift());
-  dealerHand.push(deck.shift());
+    playerHand.push(deck.shift());
+    dealerHand.push(deck.shift());
+    playerHand.push(deck.shift());
+    dealerHand.push(deck.shift());
 }
 
 const shuffleDeck = (deck) => {
 
-  let shuffledDeck = []; // temporary deck to hold shuffled cards
+    let shuffledDeck = []; // temporary deck to hold shuffled cards
 
-  for (let i = deck.length; i > 0; i--) {
-    let randomIndex = Math.floor(Math.random() * deck.length);
-    shuffledDeck.push(deck[randomIndex]);
-    deck.splice(randomIndex, 1);
-  }
+    for (let i = deck.length; i > 0; i--) {
+        let randomIndex = Math.floor(Math.random() * deck.length);
+        shuffledDeck.push(deck[randomIndex]);
+        deck.splice(randomIndex, 1);
+    }
 
-  return shuffledDeck;
+    return shuffledDeck;
 }
 
 const displayHands = (playerHand, dealerHand) => {
-  console.clear();
+    console.clear();
 
-  console.log(`Dealer has: ${dealerHand[0]['value']} and a face down card.`);
-  console.log(`You have: ${playerHand[0]['value']} and ${playerHand[1]['value']}.`)
+    console.log(`Dealer has: ${dealerHand[0]['value']} and a face down card of ${dealerHand[1]['value']}`);
+    console.log(`You have: ${playerHand[0]['value']} and ${playerHand[1]['value']}.`)
 }
 
-const sumHands = (playerHand, dealerHand) => { // TO DO: account for face cards
-  playerHand.forEach((card) => { playerTotal += Number(card.value) });
-  dealerHand.forEach((card) => { dealerTotal += Number(card.value) });
+const sumHands = (playerHand, dealerHand) => { 
+    playerHand.forEach((card) => { // Refactor duplicate code
+        switch (card['value']) {
+            case 'Jack':
+            case 'Queen':
+            case 'King':
+                playerTotal = playerTotal + 10;
+                break;
+            case 'Ace':
+                playerTotal = playerTotal + 11;
+                break;
+            default:
+                playerTotal = playerTotal + Number(card.value)
+        }
+    });
+    dealerHand.forEach((card) => {
+        switch (card['value']) {
+            case 'Jack':
+            case 'Queen':
+            case 'King':
+                dealerTotal = dealerTotal + 10;
+                break;
+            case 'Ace':
+                dealerTotal = dealerTotal + 11;
+                break;
+            default:
+                dealerTotal = dealerTotal + Number(card.value)
+        }
+    });
 }
+
 
 // MAIN
 
