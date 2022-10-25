@@ -1,17 +1,17 @@
 // 1. Initialize deck
 // 2. Deal cards to player and dealer
 // 3. Player turn: hit or stay
-//    - repeat until bust or stay
-// 4. If player bust, dealer wins.
-// 5. Dealer turn: hit or stay
-//    - repeat until total >= 17
-// 6. If dealer busts, player wins.
+//    - repeat until bust or staylayer wins.
 // 7. Compare cards and declare winner.
 const prompt = require('readline-sync');
 let deck = [];
 let value = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'];
 let suit = [' of Hearts', ' of Diamonds', ' of Spades', ' of Clubs'];
 let playerHand = [];
+// 4. If player bust, dealer wins.
+// 5. Dealer turn: hit or stay
+//    - repeat until total >= 17
+// 6. If dealer busts, p
 let dealerHand = [];
 let playerTotal = 0;
 let dealerTotal = 0;
@@ -60,7 +60,7 @@ const displayHands = (playerHand, dealerHand) => {
     }
 }
 
-const sumHands = (playerHand, dealerHand) => { 
+const sumHands = (playerHand, dealerHand) => {
     playerTotal = 0;
     dealerTotal = 0;
     playerHand.forEach((card) => { // Refactor duplicate code
@@ -98,6 +98,11 @@ const dealACard = (deck, hand) => {
     // return hand;
 }
 
+const checkPlayerTotal = (player) => {
+    return (player > 21) // true is a bust
+}
+
+
 
 // MAIN
 
@@ -112,13 +117,24 @@ displayHands(playerHand, dealerHand);
 sumHands(playerHand, dealerHand);
 console.log(`\nPlayer has ${playerTotal}. Dealer has ${dealerTotal}.`);
 
+while (true) {
+    let input = prompt.question("Do you want to (H)it or (S)tand? ");
 
-let input = prompt.question("Do you want to (H)it or (S)tand? ");
-// if (input.toUpperCase === 'H') {
-//     dealACard(deck, playerHand);
-// }
-dealACard(deck, playerHand);
+    if (input.toUpperCase() === 'H') {
+        dealACard(deck, playerHand);
+        displayHands(playerHand, dealerHand);
+        sumHands(playerHand, dealerHand);
+console.log(`\nPlayer has ${playerTotal}. Dealer has ${dealerTotal}.`);
+    } else break;
+    // dealACard(deck, playerHand);
+    // check to see if player busted
+    // if (checkPlayerTotal) {
+    //     console.log(`\nYou busted, the dealer wins.`);
+    //     break;
 
-displayHands(playerHand, dealerHand);
+    // }
+}
+
+// displayHands(playerHand, dealerHand);
 sumHands(playerHand, dealerHand);
 console.log(`\nPlayer has ${playerTotal}. Dealer has ${dealerTotal}.`);
