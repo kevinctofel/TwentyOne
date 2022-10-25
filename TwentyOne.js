@@ -56,7 +56,7 @@ const displayHands = (playerHand, dealerHand) => {
     // need to loop through hand for dealer similar to player code below
     console.log("You have: ");
     for (let i = 0; i < playerHand.length; i++) {
-        console.log(`${playerHand[i]['value']}`); // Need to format this so it's on a single line
+        console.log(`${playerHand[i]['value']}${playerHand[i]['suit']}`); // Need to format this so it's on a single line
     }
 }
 
@@ -110,7 +110,7 @@ initialHand(deck, playerHand, dealerHand);
 // Display initial hand
 displayHands(playerHand, dealerHand);
 sumHands(playerHand, dealerHand);
-console.log(`Player has ${playerTotal}. Dealer has ${dealerTotal}.`);
+console.log(`\nPlayer has ${playerTotal}. Dealer has ${dealerTotal}.`);
 
 
 let input = prompt.question("Do you want to (H)it or (S)tand? ");
@@ -121,4 +121,4 @@ dealACard(deck, playerHand);
 
 displayHands(playerHand, dealerHand);
 sumHands(playerHand, dealerHand);
-console.log(`Player has ${playerTotal}. Dealer has ${dealerTotal}.`);
+console.log(`\nPlayer has ${playerTotal}. Dealer has ${dealerTotal}.`);
