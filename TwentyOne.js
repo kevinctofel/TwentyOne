@@ -124,7 +124,7 @@ while (true) {
         dealACard(deck, playerHand);
         displayHands(playerHand, dealerHand);
         sumHands(playerHand, dealerHand);
-console.log(`\nPlayer has ${playerTotal}. Dealer has ${dealerTotal}.`);
+        console.log(`\nPlayer has ${playerTotal}. Dealer has ${dealerTotal}.`);
     } else break;
     // dealACard(deck, playerHand);
     // check to see if player busted
@@ -135,6 +135,6 @@ console.log(`\nPlayer has ${playerTotal}. Dealer has ${dealerTotal}.`);
     // }
 }
 
-// displayHands(playerHand, dealerHand);
-sumHands(playerHand, dealerHand);
-console.log(`\nPlayer has ${playerTotal}. Dealer has ${dealerTotal}.`);
+// // displayHands(playerHand, dealerHand);
+// sumHands(playerHand, dealerHand);
+// console.log(`\nPlayer has ${playerTotal}. Dealer has ${dealerTotal}.`);
