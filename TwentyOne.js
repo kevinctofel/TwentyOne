@@ -52,13 +52,16 @@ const shuffleDeck = (deck) => {
 const displayHands = (playerHand, dealerHand) => {
     console.clear();
 
-    console.log(`Dealer has: ${dealerHand[0]['value']} and a face down card of ${dealerHand[1]['value']}`);
-    // need to loop through hand for dealer similar to player code below
+    console.log("Dealer has: ");
+    for (let i = 0; i < dealerHand.length; i++) {
+        console.log(`${dealerHand[i]['value']}${dealerHand[i]['suit']}`)
+    }; 
     console.log("You have: ");
     for (let i = 0; i < playerHand.length; i++) {
         console.log(`${playerHand[i]['value']}${playerHand[i]['suit']}`); // Need to format this so it's on a single line
     }
 }
+
 
 const sumHands = (playerHand, dealerHand) => {
     playerTotal = 0;
@@ -98,11 +101,19 @@ const dealACard = (deck, hand) => {
     // return hand;
 }
 
-const checkPlayerTotal = (player) => {
+const checkTotal = (player) => {
     return (player > 21) // true is a bust
 }
 
-
+const checkWinner = (player, dealer) => {
+    if (dealer <= 21 && dealer > player) {
+        console.log("The dealer wins.");
+    } else if (player <= 21 && player > dealer) {
+        console.log("The player wins!");
+    } else if (player <= 21 && dealer <= 21 & player === dealer) {
+        console.log("It's a push.");
+    }
+}
 
 // MAIN
 
@@ -117,7 +128,7 @@ displayHands(playerHand, dealerHand);
 sumHands(playerHand, dealerHand);
 console.log(`\nPlayer has ${playerTotal}. Dealer has ${dealerTotal}.`);
 
-while (true) {
+while (true) { // Player hand loop
     let input = prompt.question("Do you want to (H)it or (S)tand? ");
 
     if (input.toUpperCase() === 'H') {
@@ -125,16 +136,22 @@ while (true) {
         displayHands(playerHand, dealerHand);
         sumHands(playerHand, dealerHand);
         console.log(`\nPlayer has ${playerTotal}. Dealer has ${dealerTotal}.`);
+        if (checkTotal(playerTotal)) {
+            console.log("You busted. Dealer wins.");
+            break;
+        }
     } else break;
-    // dealACard(deck, playerHand);
-    // check to see if player busted
-    // if (checkPlayerTotal) {
-    //     console.log(`\nYou busted, the dealer wins.`);
-    //     break;
-
-    // }
 }
 
-// // displayHands(playerHand, dealerHand);
-// sumHands(playerHand, dealerHand);
-// console.log(`\nPlayer has ${playerTotal}. Dealer has ${dealerTotal}.`);
+while (dealerTotal < 17) { // Dealer hand loop
+    dealACard(deck, dealerHand);
+    displayHands(playerHand, dealerHand);
+    sumHands(playerHand, dealerHand);
+    console.log(`\nPlayer has ${playerTotal}. Dealer has ${dealerTotal}.`);
+    if (checkTotal(dealerTotal)) {
+        console.log("Dealer busted. Player wins!");
+        break;
+    }
+}
+
+checkWinner(playerTotal, dealerTotal);
