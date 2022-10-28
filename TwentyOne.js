@@ -1,17 +1,9 @@
-// 1. Initialize deck
-// 2. Deal cards to player and dealer
-// 3. Player turn: hit or stay
-//    - repeat until bust or staylayer wins.
-// 7. Compare cards and declare winner.
+
 const prompt = require('readline-sync');
 let deck = [];
 let value = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'];
 let suit = [' of Hearts', ' of Diamonds', ' of Spades', ' of Clubs'];
 let playerHand = [];
-// 4. If player bust, dealer wins.
-// 5. Dealer turn: hit or stay
-//    - repeat until total >= 17
-// 6. If dealer busts, p
 let dealerHand = [];
 let playerTotal = 0;
 let dealerTotal = 0;
