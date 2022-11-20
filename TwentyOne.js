@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 
 const prompt = require('readline-sync');
 let deck = [];
@@ -12,100 +13,104 @@ let dealerTotal = 0;
 
 const initializeDeck = (deck) => {
 
-    for (let i = 0; i < value.length; i++) {
-        for (let j = 0; j < suit.length; j++) {
-            let card = { value: value[i], suit: suit[j] }
-            deck.push(card);
-        }
+  for (let cardValue = 0; cardValue < value.length; cardValue++) {
+    for (let cardSuit = 0; cardSuit < suit.length; cardSuit++) {
+      let card = { value: value[cardValue], suit: suit[cardSuit] };
+      deck.push(card);
     }
-    return deck;
-}
+  }
+  return deck;
+};
 
 const initialHand = (deck, playerHand, dealerHand) => { // may refactor for a loop with 4 iterations, switching hands between each
-    playerHand.push(deck.shift());
-    dealerHand.push(deck.shift());
-    playerHand.push(deck.shift());
-    dealerHand.push(deck.shift());
-}
+  playerHand.push(deck.shift());
+  dealerHand.push(deck.shift());
+  playerHand.push(deck.shift());
+  dealerHand.push(deck.shift());
+};
 
 const shuffleDeck = (deck) => {
 
-    let shuffledDeck = []; // temporary deck to hold shuffled cards
+  let shuffledDeck = []; // temporary deck to hold shuffled cards
 
-    for (let i = deck.length; i > 0; i--) {
-        let randomIndex = Math.floor(Math.random() * deck.length);
-        shuffledDeck.push(deck[randomIndex]);
-        deck.splice(randomIndex, 1);
-    }
+  for (let cards = deck.length; cards > 0; cards--) {
+    let randomIndex = Math.floor(Math.random() * deck.length);
+    shuffledDeck.push(deck[randomIndex]);
+    deck.splice(randomIndex, 1);
+  }
 
-    return shuffledDeck;
-}
+  return shuffledDeck;
+};
 
 const displayHands = (playerHand, dealerHand) => {
-    console.clear();
+  console.clear();
 
-    console.log("Dealer has: ");
-    for (let i = 0; i < dealerHand.length; i++) {
-        console.log(`${dealerHand[i]['value']}${dealerHand[i]['suit']}`)
-    }; 
-    console.log("You have: ");
-    for (let i = 0; i < playerHand.length; i++) {
-        console.log(`${playerHand[i]['value']}${playerHand[i]['suit']}`); // Need to format this so it's on a single line
-    }
-}
+  console.log("Dealer has: ");
+  for (let cards = 0; cards < dealerHand.length; cards++) {
+    console.log(`${dealerHand[cards]['value']}${dealerHand[cards]['suit']}`);
+  }
+  console.log("You have: ");
+  for (let cards = 0; cards < playerHand.length; cards++) {
+    console.log(`${playerHand[cards]['value']}${playerHand[cards]['suit']}`); // Need to format this so it's on a single line
+  }
+};
 
 
 const sumHands = (playerHand, dealerHand) => {
-    playerTotal = 0;
-    dealerTotal = 0;
-    playerHand.forEach((card) => { // Refactor duplicate code
-        switch (card['value']) {
-            case 'Jack':
-            case 'Queen':
-            case 'King':
-                playerTotal = playerTotal + 10;
-                break;
-            case 'Ace':
-                playerTotal = playerTotal + 11;
-                break;
-            default:
-                playerTotal = playerTotal + Number(card.value)
-        }
-    });
-    dealerHand.forEach((card) => {
-        switch (card['value']) {
-            case 'Jack':
-            case 'Queen':
-            case 'King':
-                dealerTotal = dealerTotal + 10;
-                break;
-            case 'Ace':
-                dealerTotal = dealerTotal + 11;
-                break;
-            default:
-                dealerTotal = dealerTotal + Number(card.value)
-        }
-    });
-}
+  playerTotal = 0;
+  dealerTotal = 0;
+  playerHand.forEach((card) => { // Refactor duplicate code
+    switch (card['value']) {
+      case 'Jack':
+      case 'Queen':
+      case 'King':
+        playerTotal += 10;
+        break;
+      case 'Ace':
+        playerTotal += 11;
+        break;
+      default:
+        playerTotal += Number(card.value);
+    }
+  });
+  dealerHand.forEach((card) => {
+    switch (card['value']) {
+      case 'Jack':
+      case 'Queen':
+      case 'King':
+        dealerTotal += 10;
+        break;
+      case 'Ace':
+        dealerTotal += 11;
+        break;
+      default:
+        dealerTotal += Number(card.value);
+    }
+  });
+};
 
 const dealACard = (deck, hand) => {
-    hand.push(deck.shift());
-    // return hand;
-}
+  hand.push(deck.shift());
+  // return hand;
+};
 
 const checkTotal = (player) => {
-    return (player > 21) // true is a bust
-}
+  // playerHand.filter(value => value === 11).forEach(_ => {
+  //     console.log(player);
+  //     if (player > 21) player -= 10;
+  // });
+  return (player > 21); // true is a bust
+};
 
 const checkWinner = (player, dealer) => {
-    if (dealer <= 21 && dealer > player) {
-        console.log("The dealer wins.");
-    } else if (player <= 21 && player > dealer) {
-        console.log("The player wins!");
-    } else if (player <= 21 && dealer <= 21 & player === dealer) {
-        console.log("It's a push.");
-    }
-}
+  if (dealer <= 21 && dealer > player) {
+    console.log("The dealer wins.");
+  } else if (player <= 21 && player > dealer) {
+    console.log("The player wins!");
+  } else if (player <= 21 && dealer <= 21 && player === dealer) {
+    console.log("It's a push.");
+  }
+};
 
 // MAIN
 
@@ -121,29 +126,30 @@ sumHands(playerHand, dealerHand);
 console.log(`\nPlayer has ${playerTotal}. Dealer has ${dealerTotal}.`);
 
 while (true) { // Player hand loop
-    let input = prompt.question("Do you want to (H)it or (S)tand? ");
+  let input = prompt.question("Do you want to (H)it or (S)tand? ");
 
-    if (input.toUpperCase() === 'H') {
-        dealACard(deck, playerHand);
-        displayHands(playerHand, dealerHand);
-        sumHands(playerHand, dealerHand);
-        console.log(`\nPlayer has ${playerTotal}. Dealer has ${dealerTotal}.`);
-        if (checkTotal(playerTotal)) {
-            console.log("You busted. Dealer wins.");
-            break;
-        }
-    } else break;
-}
-
-while (dealerTotal < 17) { // Dealer hand loop
-    dealACard(deck, dealerHand);
+  if (input.toUpperCase() === 'H') {
+    dealACard(deck, playerHand);
     displayHands(playerHand, dealerHand);
     sumHands(playerHand, dealerHand);
     console.log(`\nPlayer has ${playerTotal}. Dealer has ${dealerTotal}.`);
-    if (checkTotal(dealerTotal)) {
-        console.log("Dealer busted. Player wins!");
-        break;
+    if (checkTotal(playerTotal)) {
+      console.log("You busted. Dealer wins.");
+      break;
     }
+  } else break;
+}
+
+// eslint-disable-next-line no-unmodified-loop-condition
+while (dealerTotal < 17) { // Dealer hand loop
+  dealACard(deck, dealerHand);
+  displayHands(playerHand, dealerHand);
+  sumHands(playerHand, dealerHand);
+  console.log(`\nPlayer has ${playerTotal}. Dealer has ${dealerTotal}.`);
+  if (checkTotal(dealerTotal)) {
+    console.log("Dealer busted. Player wins!");
+    break;
+  }
 }
 
 checkWinner(playerTotal, dealerTotal);
